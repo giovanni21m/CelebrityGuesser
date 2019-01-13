@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -10,69 +11,96 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.giovannimartinus.celebrityguesser.MainActivity">
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/answerButtonLayout">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gamePlayLayout">
 
-        <Button
-            android:text="Answer 1"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/answerOne"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:background="@android:color/holo_blue_bright"
-            android:minHeight="100dp"
-            android:minWidth="140dp"
-            android:onClick="answerButton"
-            android:enabled="false"
-            android:tag="0" />
+            android:layout_above="@+id/answerButtonLayout"
+            android:id="@+id/celebImageView"
+            android:layout_alignLeft="@+id/answerButtonLayout"
+            android:layout_alignStart="@+id/answerButtonLayout"
+            android:layout_alignRight="@+id/answerButtonLayout"
+            android:layout_alignEnd="@+id/answerButtonLayout"
+            android:minWidth="280dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/celebivbackground"
+            android:layout_weight="1" />
 
-        <Button
-            android:text="Answer 2"
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/answerTwo"
-            android:layout_column="1"
-            android:layout_row="0"
-            android:background="@android:color/holo_green_light"
-            android:minHeight="100dp"
-            android:minWidth="140dp"
-            android:onClick="answerButton"
-            android:enabled="false"
-            android:tag="1" />
+            android:id="@+id/answerButtonLayout"
+            android:layout_marginBottom="23dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
 
-        <Button
-            android:text="Answer 3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answerThree"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:background="@android:color/holo_red_light"
-            android:minHeight="100dp"
-            android:minWidth="140dp"
-            android:onClick="answerButton"
-            android:enabled="false"
-            android:tag="2" />
+            <Button
+                android:text="Answer 1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/answerOne"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:background="@android:color/holo_blue_bright"
+                android:minHeight="100dp"
+                android:minWidth="140dp"
+                android:onClick="answerButton"
+                android:enabled="false"
+                android:tag="0"
+                android:layout_weight="1" />
 
-        <Button
-            android:text="Answer 4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/answerFour"
-            android:layout_column="1"
-            android:layout_row="1"
-            android:background="@android:color/holo_orange_light"
-            android:minHeight="100dp"
-            android:minWidth="140dp"
-            android:onClick="answerButton"
-            android:enabled="false"
-            android:tag="3" />
+            <Button
+                android:text="Answer 2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/answerTwo"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:background="@android:color/holo_green_light"
+                android:minHeight="100dp"
+                android:minWidth="140dp"
+                android:onClick="answerButton"
+                android:enabled="false"
+                android:tag="1"
+                android:layout_weight="1" />
 
-    </GridLayout>
+            <Button
+                android:text="Answer 3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/answerThree"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:background="@android:color/holo_red_light"
+                android:minHeight="100dp"
+                android:minWidth="140dp"
+                android:onClick="answerButton"
+                android:enabled="false"
+                android:tag="2"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="Answer 4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/answerFour"
+                android:layout_column="1"
+                android:layout_row="1"
+                android:background="@android:color/holo_orange_light"
+                android:minHeight="100dp"
+                android:minWidth="140dp"
+                android:onClick="answerButton"
+                android:enabled="false"
+                android:tag="3"
+                android:layout_weight="1" />
+
+        </GridLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

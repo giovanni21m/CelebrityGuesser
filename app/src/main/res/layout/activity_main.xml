@@ -103,4 +103,30 @@
         </GridLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gameStartLayout">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:background="@android:color/background_dark"
+            android:id="@+id/fadedBackground">
+
+        </FrameLayout>
+
+        <Button
+            android:text="playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/playButton"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray" />
+
+    </RelativeLayout>
+
 </RelativeLayout>

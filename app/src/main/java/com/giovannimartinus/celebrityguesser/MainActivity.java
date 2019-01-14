@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     Button answerThree;
     Button answerFour;
     ImageView celebImageView;
+    RelativeLayout gamePlayLayout;
+    RelativeLayout gameStartLayout;
 
     class CelebGuess {
 
@@ -36,5 +39,7 @@ public class MainActivity extends AppCompatActivity {
         answerThree = (Button) findViewById(R.id.answerThree);
         answerFour = (Button) findViewById(R.id.answerFour);
         celebImageView = (ImageView) findViewById(R.id.celebImageView);
+        gamePlayLayout = (RelativeLayout) findViewById(R.id.gamePlayLayout);
+        gameStartLayout = (RelativeLayout) findViewById(R.id.gameStartLayout);
     }
 }

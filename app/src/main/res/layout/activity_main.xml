@@ -106,7 +106,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gameStartLayout">
+        android:id="@+id/gameStartLayout"
+        android:visibility="visible">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -125,7 +126,9 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/playButton"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"
+            android:backgroundTint="@android:color/holo_orange_light"
+            android:onClick="startButton" />
 
     </RelativeLayout>
 

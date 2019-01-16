@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -13,10 +14,14 @@ import android.widget.RelativeLayout;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,20 +43,65 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout gameStartLayout;
 
     // web content downloading class
-    public class ContentDownload extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
+    public class ContentDownload extends AsyncTask<String, Void, String> {
+
+        // download specific content from the returned result
+        private void downloadedContent() {
+            String result = null;
             try {
-                //create instance with url and connect to to browser
-                URL url = new URL(urls[0]);
-                HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-                connection.connect();
+                result = contentDownload.execute("http://www.posh24.se/kandisar").get();
 
-                // download the input stream at once and convert to bitmap
-                InputStream inputStream = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
+                String[] splitResult = result.split("<div class=\"sidebarContainer\">");
 
-                return myBitmap;
+                // get image urls
+                Pattern p = Pattern.compile("<img src=\"(.*?)\"");
+                Matcher m = p.matcher(splitResult[0]);
+
+                while (m.find()) {
+                    System.out.println("Image URL: " + m.group(1));
+                }
+
+                // get celeb name
+                p = Pattern.compile("alt=\"(.*?)\"");
+                m = p.matcher(splitResult[0]);
+
+                while (m.find()) {
+                    System.out.println("Celeb Name: " + m.group(1));
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // get url, connect to browser, and get data
+        @Override
+        protected String doInBackground(String... urls) {
+            String result = "";
+            URL url;
+            HttpURLConnection urlConnection = null;
+
+            try {
+                // create instance with url and connect to to browser
+                url = new URL(urls[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+
+                // download the input stream at once
+                InputStream inputStream = urlConnection.getInputStream();
+                InputStreamReader streamReader = new InputStreamReader(inputStream);
+
+                // read data from stream and write to string
+                int data = streamReader.read();
+                while (data != -1) {
+                    char currentChar = (char) data;
+                    result += currentChar;
+                    data = streamReader.read();
+                }
+
+                return result;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 // check if internet is connected
@@ -67,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
     private class CelebGuess {
 
         boolean isActive = false;
-
-        private void downloadedContent() {}
 
         // enable/disable answer buttons
         private void buttonEnabled(GridLayout gridLayout) {
@@ -121,5 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
         gamePlayLayout = (RelativeLayout) findViewById(R.id.gamePlayLayout);
         gameStartLayout = (RelativeLayout) findViewById(R.id.gameStartLayout);
+
+        contentDownload.downloadedContent();
     }
 }

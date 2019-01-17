@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     final ContentDownload contentDownload = new ContentDownload();
     final CelebGuess celebGuess = new CelebGuess();
+    final DownloadImage downloadImage = new DownloadImage();
 
     Button answerOne;
     Button answerTwo;
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return result;
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 // check if internet is connected
@@ -132,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 // download input stream at once and convert to Bitmap
                 InputStream inputStream = urlConnection.getInputStream();
                 myBitmap = BitmapFactory.decodeStream(inputStream);
+
                 return myBitmap;
 
             } catch (MalformedURLException e){

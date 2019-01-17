@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.net.ssl.HttpsURLConnection;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,6 +111,35 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             // if nothing return null
+            return null;
+        }
+    }
+
+    // download image from image url
+    public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            Bitmap myBitmap;
+            URL url;
+            HttpURLConnection urlConnection = null;
+
+            try {
+                // create instance with url and connect to browser
+                url = new URL(urls[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.connect();
+
+                // download input stream at once and convert to Bitmap
+                InputStream inputStream = urlConnection.getInputStream();
+                myBitmap = BitmapFactory.decodeStream(inputStream);
+                return myBitmap;
+
+            } catch (MalformedURLException e){
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             return null;
         }
     }

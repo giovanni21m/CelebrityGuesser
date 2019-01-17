@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     final ContentDownload contentDownload = new ContentDownload();
     final CelebGuess celebGuess = new CelebGuess();
     final DownloadImage downloadImage = new DownloadImage();
+
+    ArrayList<String> imageUrls = new ArrayList<String>();
+    ArrayList<String> celebNames = new ArrayList<String>();
 
     Button answerOne;
     Button answerTwo;
@@ -54,22 +58,25 @@ public class MainActivity extends AppCompatActivity {
             try {
                 result = contentDownload.execute("http://www.posh24.se/kandisar").get();
 
+                // split the result at this line
                 String[] splitResult = result.split("<div class=\"sidebarContainer\">");
 
                 // get image urls
                 Pattern p = Pattern.compile("<img src=\"(.*?)\"");
                 Matcher m = p.matcher(splitResult[0]);
 
+                // add to ArrayList
                 while (m.find()) {
-                    System.out.println("Image URL: " + m.group(1));
+                    imageUrls.add(m.group(1));
                 }
 
                 // get celeb name
                 p = Pattern.compile("alt=\"(.*?)\"");
                 m = p.matcher(splitResult[0]);
 
+                // add to ArrayList
                 while (m.find()) {
-                    System.out.println("Celeb Name: " + m.group(1));
+                    celebNames.add(m.group(1));
                 }
 
             } catch (InterruptedException e) {

@@ -19,15 +19,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.net.ssl.HttpsURLConnection;
-
 
 public class MainActivity extends AppCompatActivity {
-
 
     final ContentDownload contentDownload = new ContentDownload();
     final CelebGuess celebGuess = new CelebGuess();
@@ -159,6 +157,11 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isActive = false;
 
+        int chosenCeleb = 0;
+        int locationOfCorrectAnswer;
+
+        String[] answers = new String[4];
+
         // enable/disable answer buttons
         private void buttonEnabled(GridLayout gridLayout) {
             for (int i = 0; i < gridLayout.getChildCount(); i++) {
@@ -168,6 +171,48 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     child.setEnabled(true);
                 }
+            }
+        }
+
+        private void createQuestion() {
+            Random random = new Random();
+            chosenCeleb = random.nextInt(imageUrls.size());
+
+            Bitmap celebImage;
+
+            try {
+                // set the ImageView to the randomly downloaded image
+                celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get();
+                celebImageView.setImageBitmap(celebImage);
+
+                locationOfCorrectAnswer = random.nextInt(4);
+
+                int incorrectAnswerLocation;
+
+                // add (in)correct answers to list
+                for (int i = 0; i < 4; i++) {
+                    if (i == locationOfCorrectAnswer) {
+                        answers[i] = celebNames.get(chosenCeleb);
+                    } else {
+                        incorrectAnswerLocation = random.nextInt(imageUrls.size());
+
+                        // prevent multiple correct answers from occurring
+                        while (incorrectAnswerLocation == chosenCeleb) {
+                            incorrectAnswerLocation = random.nextInt(imageUrls.size());
+                        }
+
+                        answers[i] = celebNames.get(incorrectAnswerLocation);
+                    }
+                }
+
+                // set answers to TextViews
+                answerOne.setText(answers[0]);
+                answerTwo.setText(answers[1]);
+                answerThree.setText(answers[2]);
+                answerFour.setText(answers[3]);
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

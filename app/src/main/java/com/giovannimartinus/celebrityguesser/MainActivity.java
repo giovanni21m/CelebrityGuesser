@@ -175,48 +175,62 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void createQuestion() {
-            Random random = new Random();
-            chosenCeleb = random.nextInt(imageUrls.size());
+            if (isActive == true) {
+                Random random = new Random();
+                chosenCeleb = random.nextInt(imageUrls.size());
 
-            Bitmap celebImage;
+                Bitmap celebImage;
 
-            try {
-                // set the ImageView to the randomly downloaded image
-                celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get();
-                celebImageView.setImageBitmap(celebImage);
+                try {
+                    // set the ImageView to the randomly downloaded image
+                    celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get();
+                    celebImageView.setImageBitmap(celebImage);
 
-                locationOfCorrectAnswer = random.nextInt(4);
+                    locationOfCorrectAnswer = random.nextInt(4);
 
-                int incorrectAnswerLocation;
+                    int incorrectAnswerLocation;
 
-                // add (in)correct answers to list
-                for (int i = 0; i < 4; i++) {
-                    if (i == locationOfCorrectAnswer) {
-                        answers[i] = celebNames.get(chosenCeleb);
-                    } else {
-                        incorrectAnswerLocation = random.nextInt(imageUrls.size());
-
-                        // prevent multiple correct answers from occurring
-                        while (incorrectAnswerLocation == chosenCeleb) {
+                    // add (in)correct answers to list
+                    for (int i = 0; i < 4; i++) {
+                        if (i == locationOfCorrectAnswer) {
+                            answers[i] = celebNames.get(chosenCeleb);
+                        } else {
                             incorrectAnswerLocation = random.nextInt(imageUrls.size());
+
+                            // prevent multiple correct answers from occurring
+                            while (incorrectAnswerLocation == chosenCeleb) {
+                                incorrectAnswerLocation = random.nextInt(imageUrls.size());
+                            }
+
+                            answers[i] = celebNames.get(incorrectAnswerLocation);
                         }
-
-                        answers[i] = celebNames.get(incorrectAnswerLocation);
                     }
+
+                    // set answers to TextViews
+                    answerOne.setText(answers[0]);
+                    answerTwo.setText(answers[1]);
+                    answerThree.setText(answers[2]);
+                    answerFour.setText(answers[3]);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-                // set answers to TextViews
-                answerOne.setText(answers[0]);
-                answerTwo.setText(answers[1]);
-                answerThree.setText(answers[2]);
-                answerFour.setText(answers[3]);
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                celebImageView.setImageResource(R.drawable.celebivbackground);
+                answerOne.setText("Answer 1");
+                answerTwo.setText("Answer 2");
+                answerThree.setText("Answer 3");
+                answerFour.setText("Answer 4");
             }
         }
 
-        private void answerSelection() {}
+        private void answerSelection(View view) {
+            if (view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))) {
+                Log.i("Correct", "Answer");
+            } else {
+                Log.i("Incorrect", "Answer");
+            }
+        }
 
         // start game
         private void startGame() {
@@ -225,13 +239,20 @@ public class MainActivity extends AppCompatActivity {
                 buttonEnabled(answerButtonLayout);
                 gameStartLayout.setVisibility(View.INVISIBLE);
                 playButton.setEnabled(false);
+                createQuestion();
+            } else {
+                isActive = false;
+                buttonEnabled(answerButtonLayout);
+                gameStartLayout.setVisibility(View.VISIBLE);
+                playButton.setEnabled(true);
+                createQuestion();
             }
         }
 
     }
 
     public void answerButton(View view) {
-        celebGuess.answerSelection();
+        celebGuess.answerSelection(view);
     }
 
     public void startButton(View view) {

@@ -50,10 +50,13 @@
                 android:background="@android:color/holo_blue_bright"
                 android:minHeight="100dp"
                 android:minWidth="140dp"
+                android:maxHeight="100dp"
+                android:maxWidth="140dp"
                 android:onClick="answerButton"
                 android:enabled="false"
                 android:tag="0"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="10sp" />
 
             <Button
                 android:text="Answer 2"
@@ -65,10 +68,13 @@
                 android:background="@android:color/holo_green_light"
                 android:minHeight="100dp"
                 android:minWidth="140dp"
+                android:maxHeight="100dp"
+                android:maxWidth="140dp"
                 android:onClick="answerButton"
                 android:enabled="false"
                 android:tag="1"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="10sp" />
 
             <Button
                 android:text="Answer 3"
@@ -80,10 +86,13 @@
                 android:background="@android:color/holo_red_light"
                 android:minHeight="100dp"
                 android:minWidth="140dp"
+                android:maxHeight="100dp"
+                android:maxWidth="140dp"
                 android:onClick="answerButton"
                 android:enabled="false"
                 android:tag="2"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="10sp" />
 
             <Button
                 android:text="Answer 4"
@@ -95,10 +104,13 @@
                 android:background="@android:color/holo_orange_light"
                 android:minHeight="100dp"
                 android:minWidth="140dp"
+                android:maxHeight="100dp"
+                android:maxWidth="140dp"
                 android:onClick="answerButton"
                 android:enabled="false"
                 android:tag="3"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="10sp" />
 
         </GridLayout>
     </RelativeLayout>

@@ -184,8 +184,8 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     // set the ImageView to the randomly downloaded image
-                    celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get();
-                    celebImageView.setImageBitmap(celebImage);
+                    celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get(); // error location
+                    celebImageView.setImageBitmap(celebImage); // error location
 
                     locationOfCorrectAnswer = random.nextInt(4);
 

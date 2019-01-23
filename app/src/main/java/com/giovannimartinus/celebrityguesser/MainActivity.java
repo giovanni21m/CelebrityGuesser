@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     final ContentDownload contentDownload = new ContentDownload();
     final CelebGuess celebGuess = new CelebGuess();
-    final DownloadImage downloadImage = new DownloadImage();
 
     ArrayList<String> imageUrls = new ArrayList<String>();
     ArrayList<String> celebNames = new ArrayList<String>();
@@ -180,12 +179,13 @@ public class MainActivity extends AppCompatActivity {
                 Random random = new Random();
                 chosenCeleb = random.nextInt(imageUrls.size());
 
+                DownloadImage downloadImage = new DownloadImage();
                 Bitmap celebImage;
 
                 try {
                     // set the ImageView to the randomly downloaded image
-                    celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get(); // error location
-                    celebImageView.setImageBitmap(celebImage); // error location
+                    celebImage = downloadImage.execute(imageUrls.get(chosenCeleb)).get();
+                    celebImageView.setImageBitmap(celebImage);
 
                     locationOfCorrectAnswer = random.nextInt(4);
 

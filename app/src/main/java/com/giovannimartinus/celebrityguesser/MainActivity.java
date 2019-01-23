@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -226,10 +227,12 @@ public class MainActivity extends AppCompatActivity {
 
         private void answerSelection(View view) {
             if (view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))) {
-                Log.i("Correct", "Answer");
+                Toast.makeText(MainActivity.this, "Correct!", Toast.LENGTH_SHORT).show();
             } else {
-                Log.i("Incorrect", "Answer");
+                Toast.makeText(MainActivity.this, "Wrong! It was " + celebNames.get(chosenCeleb), Toast.LENGTH_SHORT).show();
             }
+
+            createQuestion();
         }
 
         // start game

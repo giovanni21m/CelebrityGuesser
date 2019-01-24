@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isActive = false;
 
+        int numberOfRounds = 0;
         int chosenCeleb = 0;
         int locationOfCorrectAnswer;
 
@@ -232,7 +233,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Wrong! It was " + celebNames.get(chosenCeleb), Toast.LENGTH_SHORT).show();
             }
 
-            createQuestion();
+            numberOfRounds += 1;
+
+            if (numberOfRounds < 10) {
+                createQuestion();
+            } else {
+                startGame();
+            }
         }
 
         // start game
@@ -249,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 gameStartLayout.setVisibility(View.VISIBLE);
                 playButton.setEnabled(true);
                 createQuestion();
+                numberOfRounds = 0;
             }
         }
 
